@@ -1,2 +1,14 @@
-html,body{margin:0;background:#0b0f14;color:#e8eef7;font:16px/1.4 -apple-system,system-ui,sans-serif}
-#app{padding:24px}
+html,body{margin:0;background:#000;color:#fff;font:16px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif}
+#app{padding:24px 16px;padding-bottom:calc(24px + env(safe-area-inset-bottom))}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.mode{background:#ff9f0a;color:#000;font-weight:700;font-size:12px;padding:4px 8px;border-radius:999px}
+.muted{color:rgba(235,235,245,.6);font-size:12px}
+.balance{font:600 64px/1.05 "SF Pro Display",-apple-system,system-ui,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.pct{margin-top:8px;font-variant-numeric:tabular-nums}
+.pct.up{color:#00d35a}
+.pct.down{color:#ff453a}
+.agents{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.agent{background:#1c1c1e;border-radius:12px;padding:10px 12px;font-size:13px;display:flex;align-items:center;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;background:#636366}
+.dot.on{background:#00d35a}
+.status{margin-top:20px;color:rgba(235,235,245,.45);font-size:13px}
