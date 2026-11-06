@@ -1,17 +1,27 @@
 <!doctype html>
 <html lang="en">
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-<meta name="theme-color" content="#000000"/>
-<link rel="manifest" href="manifest.json"/>
-<link rel="apple-touch-icon" href="icons/icon-192.png"/>
-<title>Desk</title>
-<link rel="stylesheet" href="app.css"/>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <meta name="apple-mobile-web-app-title" content="Grok Bot"/>
+  <meta name="theme-color" content="#000000"/>
+  <link rel="manifest" href="manifest.json"/>
+  <link rel="apple-touch-icon" href="icons/icon-192.png"/>
+  <title>Grok Bot</title>
+  <link rel="stylesheet" href="app.css"/>
+</head>
 <body>
-<main id="app">Loading…</main>
-<script src="chart.js"></script>
-<script src="app.js"></script>
+  <div id="app" class="app">
+    <div id="error-bar" class="error-bar" hidden></div>
+    <div id="view" class="view"></div>
+    <nav id="tabbar" class="tabbar" hidden></nav>
+    <div id="modal-root"></div>
+    <div id="toast" class="toast" hidden></div>
+  </div>
+  <script src="chart.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
