@@ -715,20 +715,20 @@
     if (el.kind === "copytrade" && el.exits && el.exits.length) return el;
     const pos = coin && coin.position;
     if (!pos || pos.source !== "copytrade") return el;
-    const tp = Number(el.take_profit_x != null ? el.take_profit_x : setting("copytrade.take_profit_x") || 10);
+    const trailPct = Number(el.trail_pct != null ? el.trail_pct : setting("copytrade.trail_pct") || 30);
     const lock = el.lock_at_nz || setting("copytrade.lock_at_nz");
-    const entry = pos.entry_price != null ? Number(pos.entry_price) : null;
-    const tpPrice = el.take_profit_price != null ? el.take_profit_price : entry != null ? entry * tp : null;
+    const peak = pos.peak_price != null ? Number(pos.peak_price) : (pos.entry_price != null ? Number(pos.entry_price) : null);
+    const trailPrice = el.trail_price != null ? el.trail_price : peak != null ? peak * (1 - trailPct / 100) : null;
     return {
       kind: "copytrade",
-      take_profit_x: tp,
-      take_profit_price: tpPrice,
+      trail_pct: trailPct,
+      trail_price: trailPrice,
       lock_at_nz: lock,
       lock_label: el.lock_label || "06:30 NZDT",
       trader: el.trader || pos.trader,
       exits: [
         { id: "trader_sell", label: "trader sell" },
-        { id: "take_profit", label: tp + "x", price: tpPrice },
+        { id: "trail", label: "trail " + trailPct + "%", price: trailPrice, pct: trailPct },
         { id: "lock", label: "06:30 NZDT", at: lock },
       ],
     };
@@ -784,9 +784,9 @@
         const rows = (el.exits || []).map(function (ex) {
           let right = "";
           if (ex.id === "trader_sell") right = el.trader ? "when " + el.trader + " sells" : "when they sell";
-          else if (ex.id === "take_profit") right = (ex.label || "10x") + (ex.price != null ? " \u00b7 " + formatPrice(ex.price) : "");
+          else if (ex.id === "trail") right = (ex.label || ("trail " + (el.trail_pct || 30) + "%")) + (ex.price != null ? " \u00b7 " + formatPrice(ex.price) : "");
           else if (ex.id === "lock") right = el.lock_label || ex.label || "06:30 NZDT";
-          const left = ex.id === "trader_sell" ? "Trader sell" : ex.id === "take_profit" ? "Take profit" : "Lock";
+          const left = ex.id === "trader_sell" ? "Trader sell" : ex.id === "trail" ? "Trail" : "Lock";
           return '<div class="exit-row"><span class="k">' + esc(left) + '</span><span class="v">' + esc(right) + "</span></div>";
         });
         exitHTML = '<div class="exit-card"><h3>Exits</h3>' + rows.join("") + "</div>";
@@ -1201,8 +1201,8 @@
     if (!canvas || !window.DeskCharts || !S.coin) return;
     const lines = [];
     const el = copytradeExits(S.coin);
-    if (el && el.kind === "copytrade" && el.take_profit_price != null) {
-      lines.push({ price: el.take_profit_price, color: "#ff9f0a" });
+    if (el && el.kind === "copytrade" && el.trail_price != null) {
+      lines.push({ price: el.trail_price, color: "#ff9f0a" });
     } else if (S.coin.exit_lines && S.coin.exit_lines.kind === "desk") {
       const price = S.coin.exit_lines.trail_price != null ? S.coin.exit_lines.trail_price : S.coin.exit_lines.stop_price;
       if (price != null) lines.push({ price: price, color: "#ff9f0a" });
