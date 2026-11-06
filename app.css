@@ -211,6 +211,7 @@ button, input, select { font: inherit; color: inherit; }
   height: 100%;
   display: block;
 }
+.chart-empty[hidden] { display: none !important; }
 .chart-empty {
   position: absolute;
   inset: 0;
@@ -579,7 +580,7 @@ button, input, select { font: inherit; color: inherit; }
 }
 .disc-stack {
   position: relative;
-  height: 168px;
+  height: 140px;
   margin: 12px 0 20px;
 }
 .disc {
@@ -617,7 +618,7 @@ button, input, select { font: inherit; color: inherit; }
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  padding: 11px 0;
+  padding: 8px 0;
   border-bottom: 0.5px solid var(--sep);
   font-size: 15px;
 }
@@ -684,6 +685,7 @@ button, input, select { font: inherit; color: inherit; }
   align-items: center;
   gap: 8px;
 }
+.px.na { color: var(--tertiary); font-size: 40px; }
 .px {
   font-family: var(--font-display);
   font-size: clamp(40px, 12vw, 52px);
@@ -750,6 +752,7 @@ button, input, select { font: inherit; color: inherit; }
   cursor: pointer;
 }
 .group .item:last-child { border-bottom: 0; }
+a.item { text-decoration: none; color: inherit; }
 .group .item .rhs { color: var(--secondary); }
 .group-title {
   color: var(--secondary);
